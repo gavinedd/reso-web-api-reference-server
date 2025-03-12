@@ -3,4 +3,34 @@ services:
     name: reso-web-api
     env: docker
     dockerfilePath: Dockerfile.render
-    dockerContext: . 
+    dockerContext: .
+    envVars:
+      - key: SQL_HOST
+        fromService:
+          type: postgres
+          name: reso-db
+          property: host
+      - key: SQL_USER
+        fromService:
+          type: postgres
+          name: reso-db
+          property: user
+      - key: SQL_PASSWORD
+        fromService:
+          type: postgres
+          name: reso-db
+          property: password
+      - key: SQL_DB_DRIVER
+        value: org.postgresql.Driver
+      - key: SQL_CONNECTION_STR
+        fromService:
+          type: postgres
+          name: reso-db
+          property: connectionString
+      - key: CERT_REPORT_FILENAME
+        value: RESODataDictionary-1.7.metadata-report.json
+
+  - type: postgres
+    name: reso-db
+    ipAllowList: []
+    plan: free
