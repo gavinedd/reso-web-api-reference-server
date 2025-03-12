@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: reso-web-api
+    env: docker
+    dockerfilePath: ./Dockerfile.render
+    dockerContext: . 
